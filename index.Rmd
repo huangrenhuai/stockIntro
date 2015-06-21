@@ -1,0 +1,76 @@
+---
+title       : Stock Return Analysis App
+subtitle    : Data Science Project Using Slidify
+author      : Ren-Huai Huang
+job         : Data Scientist Biochemistry Biophisics
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Introduction:  
+
+1. The App is to compare a stock history price to a index price. 
+
+2. The data of the stock price is automatically download from [Yahoo](http://finance.yahoo.com/).
+
+3. The data and the plots will be displayed in corresponding tab in the main panel. 
+
+4. The App is only analysis the monthly data.
+
+--- .class #3
+## Instruction (how to use it):
+
+* Input the ticker symbol of a stock that you want to analyze in the inputbox in the left sidebar  
+
+    + you can looking up a ticker sysbol at [Yahoo Finance](http://finance.yahoo.com/lookup)
+
+* Select a stock index in the radioButtons in the left sidebar. There are three selections: 
+
+    + S&P 500 (5EGSPC)
+
+    + Dow Jones Industrial Average (5EDJI)
+
+    + NASDAQ Composite (5EIXIC) 
+
+--- .class #4
+
+## Instruction (continous):
+
+* Look up the tab for the analysis and plot
+
+    + The first tab is the stock price chart which displays the the monthly adjusted close price. 
+    
+    + The second tab is the most interesting analysis. This tab shows the histogram of yearly countinously compounded  return rate (ccReturn). It is calculated by the following fomula: 
+    
+    $$ccReturn = \log( (Adj.Close Price) / (Adj.Close Price 13 Month Ago) )$$
+    
+    + The third tab shows the summary results of both of the stock you inputed and the index that you choosed.
+    
+    + The bottom of the main panel shows the corresponding tabels download from [Yahoo Finance](http://finance.yahoo.com/lookup)  
+    
+    + The download address is shown between the tabs and the tables. 
+
+
+--- .class #5
+## Default example to calculate the yearly countinously compounded  return rate (ccReturn):
+
+```{r, echo = F}
+library(ggplot2);
+```    
+```{r}  
+stockId = "VGHCX"; yahoo = "http://real-chart.finance.yahoo.com/table.csv?s="
+url = paste0(yahoo, stockId, "&g=m&ignore=.csv");
+dat <- read.csv(url, header = T, stringsAsFactors=F);  
+ccYearRateReturn = log( dat$Adj.Close[1:(nrow(dat)-12)] / dat$Adj.Close[13:(nrow(dat))] ); 
+(Mean_ccReturn = round(mean(ccYearRateReturn),4)); 
+(STD_ccReturn = round(sd(ccYearRateReturn),4))
+```
+
+
+
+
+

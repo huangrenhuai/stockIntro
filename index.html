@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stock Return Analysis App</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Stock Return Analysis App">
+  <meta name="author" content="Ren-Huai Huang">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Stock Return Analysis App</h1>
+    <h2>Data Science Project Using Slidify</h2>
+    <p>Ren-Huai Huang<br/>Data Scientist Biochemistry Biophisics</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Introduction:</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li><p>The App is to compare a stock history price to a index price. </p></li>
+<li><p>The data of the stock price is automatically download from <a href="http://finance.yahoo.com/">Yahoo</a>.</p></li>
+<li><p>The data and the plots will be displayed in corresponding tab in the main panel. </p></li>
+<li><p>The App is only analysis the monthly data.</p></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="3" style="background:;">
+  <hgroup>
+    <h2>Instruction (how to use it):</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>Input the ticker symbol of a stock that you want to analyze in the inputbox in the left sidebar  </p>
+
+<ul>
+<li>you can looking up a ticker sysbol at <a href="http://finance.yahoo.com/lookup">Yahoo Finance</a></li>
+</ul></li>
+<li><p>Select a stock index in the radioButtons in the left sidebar. There are three selections: </p>
+
+<ul>
+<li>S&amp;P 500 (5EGSPC)</li>
+<li>Dow Jones Industrial Average (5EDJI)</li>
+<li>NASDAQ Composite (5EIXIC) </li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="4" style="background:;">
+  <hgroup>
+    <h2>Instruction (continous):</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>Look up the tab for the analysis and plot</p>
+
+<ul>
+<li>The first tab is the stock price chart which displays the the monthly adjusted close price. </li>
+<li>The second tab is the most interesting analysis. This tab shows the histogram of yearly countinously compounded  return rate (ccReturn). It is calculated by the following fomula: </li>
+</ul>
+
+<p>\[ccReturn = \log( (Adj.Close Price) / (Adj.Close Price 13 Month Ago) )\]</p>
+
+<ul>
+<li>The third tab shows the summary results of both of the stock you inputed and the index that you choosed.</li>
+<li>The bottom of the main panel shows the corresponding tabels download from <a href="http://finance.yahoo.com/lookup">Yahoo Finance</a><br></li>
+<li>The download address is shown between the tabs and the tables. </li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="5" style="background:;">
+  <hgroup>
+    <h2>Default example to calculate the yearly countinously compounded  return rate (ccReturn):</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">stockId = &quot;VGHCX&quot;; yahoo = &quot;http://real-chart.finance.yahoo.com/table.csv?s=&quot;
+url = paste0(yahoo, stockId, &quot;&amp;g=m&amp;ignore=.csv&quot;);
+dat &lt;- read.csv(url, header = T, stringsAsFactors=F);  
+ccYearRateReturn = log( dat$Adj.Close[1:(nrow(dat)-12)] / dat$Adj.Close[13:(nrow(dat))] ); 
+(Mean_ccReturn = round(mean(ccYearRateReturn),4)); 
+</code></pre>
+
+<pre><code>## [1] 0.1586
+</code></pre>
+
+<pre><code class="r">(STD_ccReturn = round(sd(ccYearRateReturn),4))
+</code></pre>
+
+<pre><code>## [1] 0.1441
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Introduction:'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Instruction (how to use it):'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Instruction (continous):'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Default example to calculate the yearly countinously compounded  return rate (ccReturn):'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
