@@ -1,3 +1,3 @@
 # stockIntro
 Calculate the stock earning based data from yahoo
-http://huangrenhuai.github.io/stockIntro/
+http://huangrh.github.io/stockIntro/
